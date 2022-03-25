@@ -11,8 +11,15 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demorrogon"]
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Получение сохраненного массива задач
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
         
         //Alternative change bar tint color
         let appearance = UINavigationBarAppearance()
@@ -55,10 +62,12 @@ class TodoListViewController: UITableViewController {
         
         var textField  = UITextField()
         
+    
         let alert = UIAlertController(title: "Добавление задачи", message: "", preferredStyle: .alert )
         
         let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
             self.itemArray.append(textField.text!)
+            self.defaults.set(self.itemArray, forKey: "TodoListArray") //Сохранение массива задач
             self.tableView.reloadData()
         }
         
