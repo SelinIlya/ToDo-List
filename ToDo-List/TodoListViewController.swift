@@ -8,8 +8,9 @@
 import UIKit
 
 class TodoListViewController: UITableViewController {
-  
-
+    
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demorrogon"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,9 +22,55 @@ class TodoListViewController: UITableViewController {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         
-       
     }
-
-
+    
+    //Создает необходимое кол-во строк в таблице
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemArray.count
+    }
+    
+    // Вставка ячейки в таблицу
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
+        cell.textLabel?.text = itemArray[indexPath.row]
+        return cell
+    }
+    
+    //Delegate Methods
+    //Действие при на жатие на строку
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Установка чекмарка
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true) //Отмена выделения ячейки
+    }
+    
+    // Добавление новых элементов
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField  = UITextField()
+        
+        let alert = UIAlertController(title: "Добавление задачи", message: "", preferredStyle: .alert )
+        
+        let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Название задачи"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
 
