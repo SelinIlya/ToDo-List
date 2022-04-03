@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class TodoListViewController: UITableViewController {
         
         
     }
-    
+     
     //Создает необходимое кол-во строк в таблице
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray.count
@@ -39,14 +39,11 @@ class TodoListViewController: UITableViewController {
     // Вставка ячейки в таблицу
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
-        
         let item = itemArray[indexPath.row]
-        
         cell.textLabel?.text = item.title
         
         // Установка чекмарка
         cell.accessoryType = item.done ? .checkmark : .none
-        
         return cell
     }
     
@@ -64,17 +61,19 @@ class TodoListViewController: UITableViewController {
     // Добавление новых элементов
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
+        
         var textField  = UITextField()
         
         
         let alert = UIAlertController(title: "Добавление задачи", message: "", preferredStyle: .alert )
         
         let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
-            
-            let newItem = Item()
+                        
+            let newItem = Item(context: self.context)
             newItem.title = textField.text!
+            newItem.done = false
             self.itemArray.append(newItem)
-            
+             
             self.saveItems()
         
         }
@@ -90,25 +89,21 @@ class TodoListViewController: UITableViewController {
     
     // Сохраниние
     func saveItems() {
-        let encoder = PropertyListEncoder()
         
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to:dataFilePath!)
+            try context.save()
         } catch{
-            print("Error encoding array \(error)")
+            print("Error save context \(error )")
         }
         tableView.reloadData()
     }
         // Загрузка
     func loadItems() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do {
-            itemArray = try decoder.decode([Item].self, from: data)
-            } catch {
-                print("Error decoding array \(error)")
-            }
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data \(error)")
         }
     }
     
