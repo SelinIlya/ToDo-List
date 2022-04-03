@@ -18,6 +18,7 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         
         
+        
         //Alternative change bar tint color
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -50,10 +51,14 @@ class TodoListViewController: UITableViewController {
     //Delegate Methods
     //Действие при на жатие на строку
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+        
         
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        self.saveItems()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true) //Отмена выделения ячейки
     }
@@ -109,3 +114,32 @@ class TodoListViewController: UITableViewController {
     
 }
 
+// Поиск
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!) 
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            tableView.reloadData()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder() //Убирает клавиатуру
+            }
+            
+        }
+    }
+}
