@@ -62,6 +62,19 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // Delegate Method
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destanationVC = segue.destination as! TodoListViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destanationVC.selectedCategory = categories[indexPath.row]
+        }
+    }
+    
     // add New Category
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -69,7 +82,13 @@ class CategoryViewController: UITableViewController {
         let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
             
             let newCategory = Category(context: self.context)
-            newCategory.name = textField.text!
+
+            if textField.text == "" {
+                newCategory.name = "Без названия"
+            } else {
+                newCategory.name = textField.text
+            }
+          
             self.categories.append(newCategory )
             
             self.saveCategories()
