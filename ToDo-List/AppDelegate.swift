@@ -7,13 +7,24 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { 
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    
+        
+        do {
+            let realm = try Realm()
+            try realm.write {
+            }
+        } catch {
+            print("Error init Realm, \(error)")
+        }
+        
         return true
     }
 
