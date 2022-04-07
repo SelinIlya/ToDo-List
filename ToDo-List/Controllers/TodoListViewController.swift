@@ -62,15 +62,18 @@ class TodoListViewController: UITableViewController {
     //Действие при на жатие на строку
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //        context.delete(itemArray[indexPath.row])
-        //        itemArray.remove(at: indexPath.row)
-        //
-        //
-        //        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        //
-        //        saveItems()
-        
+        if let item = itemArray?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done //
+                }
+            } catch {
+                print("Error save done status \(error)")
+            }
+        }
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true) //Отмена выделения ячейки
+        
     }
     
     // Добавление новых элементов
@@ -108,7 +111,7 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-   
+    
     // Загрузка
     func loadItems() {
         
