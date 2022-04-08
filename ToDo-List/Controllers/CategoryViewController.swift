@@ -11,7 +11,7 @@ import RealmSwift
 class CategoryViewController: UITableViewController {
     
     let realm = try! Realm()
-     
+    
     var categories : Results<Category>?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -20,7 +20,7 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let appearance = UINavigationBarAppearance()
+        let appearance = UINavigationBarAppearance() 
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = UIColor.systemBlue
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -59,13 +59,13 @@ class CategoryViewController: UITableViewController {
         
         categories = realm.objects(Category.self)
         
-//        let request : NSFetchRequest<Category> = Category.fetchRequest()
-//        do {
-//            categories = try context.fetch(request)
-//        } catch {
-//            print("Error  load Categories \(error)")
-//        }
-//        tableView.reloadData()
+        //        let request : NSFetchRequest<Category> = Category.fetchRequest()
+        //        do {
+        //            categories = try context.fetch(request)
+        //        } catch {
+        //            print("Error  load Categories \(error)")
+        //        }
+        //        tableView.reloadData()
     }
     
     // Delegate Method
@@ -88,7 +88,7 @@ class CategoryViewController: UITableViewController {
         let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
             
             let newCategory = Category( )
-
+            
             if textField.text == "" {
                 newCategory.name = "Без названия"
             } else {
