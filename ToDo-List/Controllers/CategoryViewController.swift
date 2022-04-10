@@ -32,6 +32,7 @@ class CategoryViewController: SwipeTableViewController {
         navBar.backgroundColor = UIColor(hexString: categories![0].color)
      
         tableView.reloadData()
+        
     }
     // Datasurse Metod
     
@@ -124,3 +125,4 @@ class CategoryViewController: SwipeTableViewController {
     }
 }
 
+ 
