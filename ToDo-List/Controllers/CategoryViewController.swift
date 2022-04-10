@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     
@@ -20,13 +21,15 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = 80.0
-        
-        let appearance = UINavigationBarAppearance() 
+          
+        let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = UIColor.systemBlue
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
+        
+        tableView.separatorStyle = .none
         
         loadCategories()
     }
@@ -37,17 +40,16 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
     }
-    
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "Нет добавленных категорий"
-
+            cell.textLabel?.text = categories?[indexPath.row].name ?? "Нет добавленных категорий"
+            cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].color ?? "0075E3")
+       
         return cell
     }
+    
     
     // Data Manipulation
     func save(category: Category) {
@@ -64,14 +66,6 @@ class CategoryViewController: SwipeTableViewController {
     func loadCategories() {
         
         categories = realm.objects(Category.self)
-        
-        //        let request : NSFetchRequest<Category> = Category.fetchRequest()
-        //        do {
-        //            categories = try context.fetch(request)
-        //        } catch {
-        //            print("Error  load Categories \(error)")
-        //        }
-        //        tableView.reloadData()
     }
     
     // Delete Method
@@ -113,6 +107,7 @@ class CategoryViewController: SwipeTableViewController {
             } else {
                 newCategory.name = textField.text!
             }
+            newCategory.color = UIColor.randomFlat().hexValue()
             
             self.save(category: newCategory)
         }
