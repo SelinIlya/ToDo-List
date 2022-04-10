@@ -21,20 +21,18 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = 80.0
-          
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.systemBlue
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        
         tableView.separatorStyle = .none
         
         loadCategories()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navBar = navigationController?.navigationBar else {
+            fatalError("Navigation controller does not exist")}
+        navBar.backgroundColor = UIColor(hexString: categories![0].color)
+     
+        tableView.reloadData()
+    }
     // Datasurse Metod
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,12 +42,15 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-            cell.textLabel?.text = categories?[indexPath.row].name ?? "Нет добавленных категорий"
-            cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].color ?? "0075E3")
-       
+        if let category = categories?[indexPath.row]{
+            cell.textLabel?.text = category.name
+            guard let categoryColor = UIColor(hexString: category.color) else {fatalError()}
+            cell.backgroundColor = categoryColor
+        cell.textLabel?.textColor = ContrastColorOf(categoryColor, returnFlat: true)
+        }
         return cell
     }
-    
+     
     
     // Data Manipulation
     func save(category: Category) {

@@ -18,25 +18,31 @@ class TodoListViewController: SwipeTableViewController {
             //            load Items()
         }
     }
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = 80
-        
-        //Alternative change bar tint color
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.systemBlue
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
+        tableView.rowHeight = 70
+        tableView.separatorStyle = .none
         
         loadItems()
-        
-        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorForBar = selectedCategory?.color {
+            title = selectedCategory!.name
+            guard let navBar = navigationController?.navigationBar else {
+                fatalError("Navigation controller does not exist")
+            }
+            if let navBarColor = UIColor(hexString: colorForBar){
+                navBar.backgroundColor = navBarColor
+                navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+                searchBar.barTintColor = navBarColor
+            }
+        }
+    }
     //Создает необходимое кол-во строк в таблице
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray?.count ?? 1
@@ -60,7 +66,6 @@ class TodoListViewController: SwipeTableViewController {
         }
         
         return cell
-        
     }
     
     //Delegate Methods
@@ -86,7 +91,6 @@ class TodoListViewController: SwipeTableViewController {
         
         
         var textField  = UITextField()
-        
         
         let alert = UIAlertController(title: "Добавление задачи", message: "", preferredStyle: .alert )
         
@@ -117,7 +121,7 @@ class TodoListViewController: SwipeTableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // Delete item 
+    // Delete item
     override func updateModel(at indexPath: IndexPath) {
         if let itemForDelete = self.itemArray?[indexPath.row] {
             do {
@@ -129,7 +133,6 @@ class TodoListViewController: SwipeTableViewController {
             }
         }
     }
-
     
     
     // Загрузка
@@ -139,7 +142,6 @@ class TodoListViewController: SwipeTableViewController {
         
         tableView.reloadData()
     }
-    
 }
 
 // Поиск
@@ -151,13 +153,13 @@ extension TodoListViewController: UISearchBarDelegate {
         
         tableView.reloadData()
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadItems()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder() //Убирает клавиатуру
             }
-            
         }
     }
 }
