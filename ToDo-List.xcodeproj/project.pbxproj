@@ -19,8 +19,8 @@
 		AFA3167327E350B1002DD589 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA3167227E350B1002DD589 /* Assets.xcassets */; };
 		AFA3167627E350B1002DD589 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA3167427E350B1002DD589 /* LaunchScreen.storyboard */; };
 		AFE5392228059D16004C4F83 /* README.MD in Resources */ = {isa = PBXBuildFile; fileRef = AFE5392128059D16004C4F83 /* README.MD */; };
-		AFE539262805A3DA004C4F83 /* Screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE539242805A3DA004C4F83 /* Screenshot1.png */; };
-		AFE539272805A3DA004C4F83 /* Screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE539252805A3DA004C4F83 /* Screenshot.png */; };
+		AFFA6C51281088AA0094EFBD /* Screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = AFFA6C4F281088AA0094EFBD /* Screenshot1.png */; };
+		AFFA6C52281088AA0094EFBD /* Screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = AFFA6C50281088AA0094EFBD /* Screenshot.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +39,8 @@
 		AFA3167527E350B1002DD589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFA3167727E350B1002DD589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFE5392128059D16004C4F83 /* README.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.MD; sourceTree = "<group>"; };
-		AFE539242805A3DA004C4F83 /* Screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot1.png; sourceTree = "<group>"; };
-		AFE539252805A3DA004C4F83 /* Screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot.png; sourceTree = "<group>"; };
+		AFFA6C4F281088AA0094EFBD /* Screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot1.png; sourceTree = "<group>"; };
+		AFFA6C50281088AA0094EFBD /* Screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot.png; sourceTree = "<group>"; };
 		BDB323099F0DDBA119175016 /* Pods-ToDo-List.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-List.release.xcconfig"; path = "Target Support Files/Pods-ToDo-List/Pods-ToDo-List.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,8 +146,8 @@
 		AFE539232805A3B5004C4F83 /* PreviewApp */ = {
 			isa = PBXGroup;
 			children = (
-				AFE539242805A3DA004C4F83 /* Screenshot1.png */,
-				AFE539252805A3DA004C4F83 /* Screenshot.png */,
+				AFFA6C4F281088AA0094EFBD /* Screenshot1.png */,
+				AFFA6C50281088AA0094EFBD /* Screenshot.png */,
 			);
 			path = PreviewApp;
 			sourceTree = "<group>";
@@ -213,11 +213,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFE5392228059D16004C4F83 /* README.MD in Resources */,
-				AFE539272805A3DA004C4F83 /* Screenshot.png in Resources */,
 				AFA3167627E350B1002DD589 /* LaunchScreen.storyboard in Resources */,
+				AFFA6C51281088AA0094EFBD /* Screenshot1.png in Resources */,
 				AFA3167327E350B1002DD589 /* Assets.xcassets in Resources */,
-				AFE539262805A3DA004C4F83 /* Screenshot1.png in Resources */,
 				AFA3167127E350AF002DD589 /* Main.storyboard in Resources */,
+				AFFA6C52281088AA0094EFBD /* Screenshot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
