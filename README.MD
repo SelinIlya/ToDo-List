@@ -5,7 +5,7 @@
 
 
 ### Preview App
-<img src="https://github.com/SelinIlya/ToDo-List/blob/22ad2da643e8abef197e61431f0d908a267d2a65/ToDo-List/Supporting%20Files/PreviewApp/Screenshot2.png" width="170"> <img src="https://github.com/SelinIlya/ToDo-List/blob/fa68554e98377a2771f21f260556abadea51a17d/ToDo-List/Supporting%20Files/PreviewApp/Screenshot3.png" width="170">
+<img src="https://github.com/SelinIlya/ToDo-List/blob/928bb42391422b2764b670989b3b1f1dfbe65091/ToDo-List/Supporting%20Files/PreviewApp/Screenshot2.png" width="170"> <img src="https://github.com/SelinIlya/ToDo-List/blob/928bb42391422b2764b670989b3b1f1dfbe65091/ToDo-List/Supporting%20Files/PreviewApp/Screenshot3.png" width="170">
 
 ### Functionality
 
